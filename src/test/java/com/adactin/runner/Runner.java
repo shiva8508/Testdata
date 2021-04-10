@@ -14,13 +14,15 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src\\test\\java\\com\\adactin\\feature",
+@CucumberOptions(features = "src\\test\\java\\com\\adactin\\feature", 
                   glue = "com\\adactin\\stepdefinition", 
-                  monochrome = true,
-                  dryRun = false,
-                  strict = true
-                  
-                  )
+                  monochrome = true, 
+                  dryRun = false, 
+                  strict = true,
+                   plugin = {"html:runner.html","pretty","json :reports/JsonReport.json",
+                		   "com.cucumber.listener.ExtentCucumberFormatter:ExtentReport/CucumberReport.html",
+                		   "rerun:rerunREports/FailedScenario.txt"})
+
 public class Runner {
 
 	public static WebDriver driver;
@@ -28,7 +30,7 @@ public class Runner {
 	@BeforeClass
 	public static void setup() throws IOException {
 
-	    String browser = FileReaderManager.getInstsance().getCrInstance().getBrowser();
+		String browser = FileReaderManager.getInstsance().getCrInstance().getBrowser();
 		driver = Baseclass.BrowserLunch(browser);
 	}
 
